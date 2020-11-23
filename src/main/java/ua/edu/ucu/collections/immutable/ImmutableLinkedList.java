@@ -104,10 +104,11 @@ public class ImmutableLinkedList implements ImmutableList {
                 newNode.setNext(headCopy);
                 headCopy = newNode;
             } else {
+                int i = index;
 
-                while (index != 1) {
+                while (i != 1) {
                     currentNode = currentNode.getNext();
-                    index = -1;
+                    i -= 1;
                 }
 
                 newNode.setNext(currentNode.getNext());
@@ -138,10 +139,11 @@ public class ImmutableLinkedList implements ImmutableList {
         Node headCopy = this.copyLinkedList();
         ImmutableLinkedList immutableLinkedListCopy =
                 new ImmutableLinkedList(headCopy);
+        int i = index;
 
         for (Object e: c) {
-            immutableLinkedListCopy = immutableLinkedListCopy.add(index, e);
-            index += 1;
+            immutableLinkedListCopy = immutableLinkedListCopy.add(i, e);
+            i += 1;
         }
 
         return immutableLinkedListCopy;
@@ -151,10 +153,11 @@ public class ImmutableLinkedList implements ImmutableList {
     public Object get(int index) {
         if (0 <= index && index < this.size) {
             Node currentNode = this.head;
+            int i = index;
 
-            while (index > 0) {
+            while (i > 0) {
                 currentNode = currentNode.getNext();
-                index -= 1;
+                i -= 1;
             }
 
             return currentNode.getData();
@@ -176,10 +179,11 @@ public class ImmutableLinkedList implements ImmutableList {
                 }
             } else {
                 Node currentNode = headCopy;
+                int i = index;
 
-                while (index > 1) {
+                while (i > 1) {
                     currentNode = currentNode.getNext();
-                    index -= 1;
+                    i -= 1;
                 }
 
                 currentNode.setNext(currentNode.getNext().getNext());
@@ -196,10 +200,11 @@ public class ImmutableLinkedList implements ImmutableList {
         if (0 <= index && index < this.size) {
             Node headCopy = this.copyLinkedList();
             Node currentNode = headCopy;
+            int i = index;
 
-            while (index > 0) {
+            while (i > 0) {
                 currentNode = currentNode.getNext();
-                index -= 1;
+                i -= 1;
             }
 
             currentNode.setData(e);
@@ -234,7 +239,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public ImmutableLinkedList clear() {
-        return new ImmutableLinkedList(new Node());
+        return new ImmutableLinkedList();
     }
 
     @Override

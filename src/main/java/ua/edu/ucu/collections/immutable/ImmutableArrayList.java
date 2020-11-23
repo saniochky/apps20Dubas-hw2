@@ -71,7 +71,8 @@ public class ImmutableArrayList implements ImmutableList {
         Object[] collectionCopy = new Object[this.collection.length];
         System.arraycopy(this.collection, 0,
                 collectionCopy,0, this.collectionSize);
-        ImmutableArrayList immutableArrayListCopy = new ImmutableArrayList(collectionCopy);
+        ImmutableArrayList immutableArrayListCopy =
+                new ImmutableArrayList(collectionCopy);
 
         for (Object e: c) {
             immutableArrayListCopy = immutableArrayListCopy.add(e);
@@ -84,7 +85,8 @@ public class ImmutableArrayList implements ImmutableList {
     public ImmutableArrayList addAll(int index, Object[] c) {
         if (0 <= index && index < this.collectionSize) {
             Object[] collectionCopy = new Object[this.collection.length];
-            System.arraycopy(this.collection, 0,collectionCopy, 0, this.collectionSize);
+            System.arraycopy(this.collection, 0, collectionCopy,
+                    0, this.collectionSize);
             ImmutableArrayList immutableArrayListCopy =
                     new ImmutableArrayList(collectionCopy);
 

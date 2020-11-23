@@ -46,13 +46,13 @@ public class ImmutableLinkedListTest {
 
     @Test
     public void testAddMethodWithIndexOfNonEmptyList() {
-        String[] arr = {"aaa", "aaaaa"};
-        String[] wordArr = {"aaa", "aaaa", "aaaaa"};
-        String word = "aaaa";
+        String[] arr = {"aaa", "aaaa", "aaaaaa"};
+        String[] wordArr = {"aaa", "aaaa", "aaaaa", "aaaaaa"};
+        String word = "aaaaa";
 
         ImmutableLinkedList list = new ImmutableLinkedList(arr);
         ImmutableLinkedList expectedResult = new ImmutableLinkedList(wordArr);
-        ImmutableLinkedList actualResult = list.add(1, word);
+        ImmutableLinkedList actualResult = list.add(2, word);
 
         assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
     }
@@ -77,6 +77,15 @@ public class ImmutableLinkedListTest {
 
         ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
         list.add(2, word);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddMethodWithIndexLessThanZero() {
+        String[] wordArr = {"aaa", "aaaa"};
+        String word = "aaaaa";
+
+        ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
+        list.add(-2, word);
     }
 
     @Test
@@ -138,10 +147,18 @@ public class ImmutableLinkedListTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveMethodWithIndexOutOfBounds() {
-        String[] wordArr = {"aaa", "aaaa", "aaaaa"};
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
 
-        ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
-        list.get(3);
+        ImmutableLinkedList list = new ImmutableLinkedList(arr);
+        list.remove(3);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveMethodWithIndexLessThanZero() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableLinkedList list = new ImmutableLinkedList(arr);
+        list.remove(-22);
     }
 
     @Test
@@ -169,12 +186,12 @@ public class ImmutableLinkedListTest {
 
     @Test
     public void testSetMethod() {
-        String[] arr = {"bbb", "aaaa", "aaaaa"};
+        String[] arr = {"aaa", "aaaa", "bbbbb"};
         String[] wordArr = {"aaa", "aaaa", "aaaaa"};
 
         ImmutableLinkedList list = new ImmutableLinkedList(arr);
         ImmutableLinkedList expectedResult = new ImmutableLinkedList(wordArr);
-        ImmutableLinkedList actualResult = list.set(0, "aaa");
+        ImmutableLinkedList actualResult = list.set(2, "aaaaa");
 
         assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
     }
@@ -185,6 +202,14 @@ public class ImmutableLinkedListTest {
 
         ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
         list.set(3, "bbbbbb");
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testSetMethodWithIndexLessThanZero() {
+        String[] wordArr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
+        list.set(-2, "bbbbbb");
     }
 
     @Test
@@ -238,6 +263,33 @@ public class ImmutableLinkedListTest {
         int actualResult = list.size();
 
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testClearMethod() {
+        String[] arr = {"a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa"};
+
+        ImmutableLinkedList list = new ImmutableLinkedList(arr);
+        ImmutableLinkedList expectedResult = new ImmutableLinkedList();
+        ImmutableLinkedList actualResult = list.clear();
+
+        assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
+    }
+
+    @Test
+    public void testIsEmptyMethodTrue() {
+        ImmutableLinkedList list = new ImmutableLinkedList();
+
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public void testIsEmptyMethodFalse() {
+        String[] arr = {"a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa"};
+
+        ImmutableLinkedList list = new ImmutableLinkedList(arr);
+
+        assertFalse(list.isEmpty());
     }
 
     @Test
