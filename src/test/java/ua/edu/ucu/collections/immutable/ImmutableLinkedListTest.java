@@ -71,7 +71,7 @@ public class ImmutableLinkedListTest {
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testAddMethodWithIndexOutOfRange() {
+    public void testAddMethodWithIndexOutOfBounds() {
         String[] wordArr = {"aaa", "aaaa"};
         String word = "aaaaa";
 
@@ -117,7 +117,7 @@ public class ImmutableLinkedListTest {
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testGetMethodWithIndexOutOfRange() {
+    public void testGetMethodWithIndexOutOfBounds() {
         String[] wordArr = {"aaa", "aaaa", "aaaaa"};
 
         ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
@@ -137,7 +137,7 @@ public class ImmutableLinkedListTest {
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testRemoveMethodWithIndexOutOfRange() {
+    public void testRemoveMethodWithIndexOutOfBounds() {
         String[] wordArr = {"aaa", "aaaa", "aaaaa"};
 
         ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
@@ -180,7 +180,7 @@ public class ImmutableLinkedListTest {
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testSetMethodWithIndexOutOfRange() {
+    public void testSetMethodWithIndexOutOfBounds() {
         String[] wordArr = {"aaa", "aaaa", "aaaaa"};
 
         ImmutableLinkedList list = new ImmutableLinkedList(wordArr);

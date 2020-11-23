@@ -214,7 +214,7 @@ public class ImmutableLinkedList implements ImmutableList {
             Node currentNode = this.head;
 
             for (int i = 0; i < this.size; i++) {
-                if (currentNode.getData() == e) {
+                if (currentNode.getData().equals(e)) {
                     return i;
                 }
 

@@ -2,7 +2,6 @@ package ua.edu.ucu.collections.immutable;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -63,14 +62,179 @@ public class ImmutableArrayListTest {
         String[] addWordArr = {"aaaa", "aaaaa"};
 
         ImmutableArrayList list = new ImmutableArrayList(arr);
-        System.out.println(list.toString());
         ImmutableArrayList expectedResult = new ImmutableArrayList(wordArr);
-        System.out.println(expectedResult.toString());
-        ImmutableArrayList actualResult = list.add(addWordArr);
-        System.out.println(Arrays.toString(actualResult.toArray()));
+        ImmutableArrayList actualResult = list.addAll(addWordArr);
 
         assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
     }
 
+    @Test
+    public void testAddAllMethodWithIndex() {
+        String[] arr = {"aaaaa"};
+        String[] wordArr = {"aaa", "aaaa", "aaaaa"};
+        String[] addWordArr = {"aaa", "aaaa"};
 
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        ImmutableArrayList expectedResult = new ImmutableArrayList(wordArr);
+        ImmutableArrayList actualResult = list.addAll(0, addWordArr);
+
+        assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllMethodWithIndexOutOfBounds() {
+        String[] arr = {"aaaaa"};
+        String[] addWordArr = {"aaa", "aaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.addAll(4, addWordArr);
+    }
+
+    @Test
+    public void testGetMethod() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        String expectedResult = "aaaa";
+        Object actualResult = list.get(1);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetMethodWithIndexOutOfBounds() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.get(8);
+    }
+
+    @Test
+    public void testRemoveMethod() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+        String[] wordArr = {"aaa", "aaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        ImmutableArrayList expectedResult = new ImmutableArrayList(wordArr);
+        ImmutableArrayList actualResult = list.remove(2);
+
+        assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveMethodWithIndexOutOfBounds() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.remove(8);
+    }
+
+    @Test
+    public void testSetMethod() {
+        String[] arr = {"bbb", "aaaa", "aaaaa"};
+        String[] wordArr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        ImmutableArrayList expectedResult = new ImmutableArrayList(wordArr);
+        ImmutableArrayList actualResult = list.set(0, "aaa");
+
+        assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testSetMethodWithIndexOutOfBounds() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.set(8, "bbb");
+    }
+
+    @Test
+    public void testIndexOfMethod() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        int expectedResult = 1;
+        int actualResult = list.indexOf("aaaa");
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testIndexOfMethodWithEmptyList() {
+        ImmutableArrayList list = new ImmutableArrayList();
+        int expectedResult = -1;
+        int actualResult = list.indexOf("aaaa");
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testIndexOfMethodWithNoSameElement() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        int expectedResult = -1;
+        int actualResult = list.indexOf("bbb");
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testSizeMethod() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        int expectedResult = 3;
+        int actualResult = list.size();
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testClearMethod() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        ImmutableArrayList expectedResult = new ImmutableArrayList();
+        ImmutableArrayList actualResult = list.clear();
+
+        assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
+    }
+
+    @Test
+    public void testIsEmptyMethodFalse() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+
+        assertFalse(list.isEmpty());
+    }
+
+    @Test
+    public void testIsEmptyMethodTrue() {
+        ImmutableArrayList list = new ImmutableArrayList();
+
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public void testToStringMethod() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        String expectedResult = "aaa, aaaa, aaaaa";
+        String actualResult = list.toString();
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testToStringMethodWithEmptyList() {
+        ImmutableArrayList list = new ImmutableArrayList();
+        String expectedResult = "";
+        String actualResult = list.toString();
+
+        assertEquals(expectedResult, actualResult);
+    }
 }

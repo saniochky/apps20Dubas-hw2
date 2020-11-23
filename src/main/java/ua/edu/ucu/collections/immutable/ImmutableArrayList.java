@@ -79,7 +79,9 @@ public class ImmutableArrayList implements ImmutableList {
     @Override
     public ImmutableArrayList addAll(int index, Object[] c) {
         if (0 <= index && index < this.collectionSize) {
-            ImmutableArrayList immutableArrayListCopy = this;
+            Object[] collectionCopy = new Object[this.collection.length];
+            System.arraycopy(this.collection, 0, collectionCopy, 0, this.collectionSize);
+            ImmutableArrayList immutableArrayListCopy = new ImmutableArrayList(collectionCopy);
 
             for (int i = 0; i < c.length; i++) {
                 immutableArrayListCopy = immutableArrayListCopy.add(index + i, c[i]);
@@ -105,7 +107,7 @@ public class ImmutableArrayList implements ImmutableList {
         if (0 <= index && index < this.collectionSize) {
             Object[] collectionCopy = new Object[this.collection.length];
             System.arraycopy(this.collection, 0, collectionCopy, 0, index);
-            System.arraycopy(this.collection, index++, collectionCopy, index, this.collectionSize - index - 1);
+            System.arraycopy(this.collection, index + 1, collectionCopy, index, this.collectionSize - index - 1);
 
             return new ImmutableArrayList(collectionCopy);
         }
@@ -129,7 +131,7 @@ public class ImmutableArrayList implements ImmutableList {
     @Override
     public int indexOf(Object e) {
         for (int i =  0; i < this.collectionSize; i++) {
-            if (this.collection[i] == e) {
+            if (this.collection[i].equals(e)) {
                 return i;
             }
         }
@@ -162,16 +164,7 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < this.collectionSize; i++) {
-            sb.append(this.collection[i]);
-
-            if (i != this.collectionSize - 1) {
-                sb.append(", ");
-            }
-        }
-
-        return sb.toString();
+        String collectionString = Arrays.toString(this.toArray());
+        return collectionString.substring(1, collectionString.length() - 1);
     }
 }
