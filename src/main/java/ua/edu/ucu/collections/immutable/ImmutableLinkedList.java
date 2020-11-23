@@ -24,7 +24,7 @@ public class ImmutableLinkedList implements ImmutableList {
         }
     }
 
-    public ImmutableLinkedList() {}
+    public ImmutableLinkedList() { }
 
     public ImmutableLinkedList(Object[] c) {
         if (c.length > 0) {
@@ -107,7 +107,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
                 while (index != 1) {
                     currentNode = currentNode.getNext();
-                    index--;
+                    index = -1;
                 }
 
                 newNode.setNext(currentNode.getNext());
@@ -123,7 +123,8 @@ public class ImmutableLinkedList implements ImmutableList {
     @Override
     public ImmutableLinkedList addAll(Object[] c) {
         Node headCopy = this.copyLinkedList();
-        ImmutableLinkedList immutableLinkedListCopy = new ImmutableLinkedList(headCopy);
+        ImmutableLinkedList immutableLinkedListCopy =
+                new ImmutableLinkedList(headCopy);
 
         for (Object e: c) {
             immutableLinkedListCopy = immutableLinkedListCopy.add(e);
@@ -135,11 +136,12 @@ public class ImmutableLinkedList implements ImmutableList {
     @Override
     public ImmutableLinkedList addAll(int index, Object[] c) {
         Node headCopy = this.copyLinkedList();
-        ImmutableLinkedList immutableLinkedListCopy = new ImmutableLinkedList(headCopy);
+        ImmutableLinkedList immutableLinkedListCopy =
+                new ImmutableLinkedList(headCopy);
 
         for (Object e: c) {
             immutableLinkedListCopy = immutableLinkedListCopy.add(index, e);
-            index++;
+            index += 1;
         }
 
         return immutableLinkedListCopy;
@@ -152,7 +154,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
             while (index > 0) {
                 currentNode = currentNode.getNext();
-                index--;
+                index -= 1;
             }
 
             return currentNode.getData();
@@ -177,7 +179,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
                 while (index > 1) {
                     currentNode = currentNode.getNext();
-                    index--;
+                    index -= 1;
                 }
 
                 currentNode.setNext(currentNode.getNext().getNext());
@@ -197,7 +199,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
             while (index > 0) {
                 currentNode = currentNode.getNext();
-                index--;
+                index -= 1;
             }
 
             currentNode.setData(e);

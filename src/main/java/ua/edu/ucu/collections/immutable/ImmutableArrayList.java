@@ -13,8 +13,9 @@ public class ImmutableArrayList implements ImmutableList {
 
     public ImmutableArrayList(Object[] c) {
         if (c.length != 0) {
-            this.collection = c;
             this.collectionSize = c.length;
+            this.collection = new Object[this.collectionSize];
+            System.arraycopy(c, 0, this.collection, 0, this.collectionSize);
         } else {
             this.collection = new Object[1];
         }
@@ -37,7 +38,8 @@ public class ImmutableArrayList implements ImmutableList {
         }
 
         Object[] collectionCopy = new Object[copyLength];
-        System.arraycopy(this.collection, 0, collectionCopy, 0, this.collectionSize);
+        System.arraycopy(this.collection, 0,
+                collectionCopy, 0, this.collectionSize);
         collectionCopy[this.collectionSize] = e;
 
         return new ImmutableArrayList(collectionCopy);
@@ -55,7 +57,8 @@ public class ImmutableArrayList implements ImmutableList {
             Object[] collectionCopy = new Object[copyLength];
             System.arraycopy(this.collection, 0, collectionCopy, 0, index);
             collectionCopy[index] = e;
-            System.arraycopy(this.collection, index, collectionCopy, index + 1, this.collectionSize - index);
+            System.arraycopy(this.collection, index,collectionCopy, index + 1,
+                    this.collectionSize - index);
 
             return new ImmutableArrayList(collectionCopy);
         }
@@ -66,7 +69,8 @@ public class ImmutableArrayList implements ImmutableList {
     @Override
     public ImmutableArrayList addAll(Object[] c) {
         Object[] collectionCopy = new Object[this.collection.length];
-        System.arraycopy(this.collection, 0, collectionCopy, 0, this.collectionSize);
+        System.arraycopy(this.collection, 0,
+                collectionCopy,0, this.collectionSize);
         ImmutableArrayList immutableArrayListCopy = new ImmutableArrayList(collectionCopy);
 
         for (Object e: c) {
@@ -80,11 +84,13 @@ public class ImmutableArrayList implements ImmutableList {
     public ImmutableArrayList addAll(int index, Object[] c) {
         if (0 <= index && index < this.collectionSize) {
             Object[] collectionCopy = new Object[this.collection.length];
-            System.arraycopy(this.collection, 0, collectionCopy, 0, this.collectionSize);
-            ImmutableArrayList immutableArrayListCopy = new ImmutableArrayList(collectionCopy);
+            System.arraycopy(this.collection, 0,collectionCopy, 0, this.collectionSize);
+            ImmutableArrayList immutableArrayListCopy =
+                    new ImmutableArrayList(collectionCopy);
 
             for (int i = 0; i < c.length; i++) {
-                immutableArrayListCopy = immutableArrayListCopy.add(index + i, c[i]);
+                immutableArrayListCopy =
+                        immutableArrayListCopy.add(index + i, c[i]);
             }
 
             return immutableArrayListCopy;
@@ -107,7 +113,8 @@ public class ImmutableArrayList implements ImmutableList {
         if (0 <= index && index < this.collectionSize) {
             Object[] collectionCopy = new Object[this.collection.length];
             System.arraycopy(this.collection, 0, collectionCopy, 0, index);
-            System.arraycopy(this.collection, index + 1, collectionCopy, index, this.collectionSize - index - 1);
+            System.arraycopy(this.collection, index + 1, collectionCopy,
+                    index, this.collectionSize - index - 1);
 
             return new ImmutableArrayList(collectionCopy);
         }
@@ -119,7 +126,8 @@ public class ImmutableArrayList implements ImmutableList {
     public ImmutableArrayList set(int index, Object e) {
         if (0 <= index && index < this.collectionSize) {
             Object[] collectionCopy = new Object[this.collection.length];
-            System.arraycopy(this.collection, 0, collectionCopy, 0, this.collectionSize);
+            System.arraycopy(this.collection, 0,
+                    collectionCopy, 0, this.collectionSize);
             collectionCopy[index] = e;
 
             return new ImmutableArrayList(collectionCopy);

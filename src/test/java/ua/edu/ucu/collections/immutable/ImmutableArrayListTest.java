@@ -2,11 +2,10 @@ package ua.edu.ucu.collections.immutable;
 
 import org.junit.Test;
 
-
 import static org.junit.Assert.*;
 
 public class ImmutableArrayListTest {
-    
+
     @Test
     public void testAddMethod() {
         String[] arr = {"aaa", "aaaa"};
@@ -46,6 +45,21 @@ public class ImmutableArrayListTest {
         assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
     }
 
+    @Test
+    public void testAddMethodWithIndexTwoObjets() {
+        String[] arr = {"aaa", "aaaaaa"};
+        String[] wordArr = {"aaa", "aaaa", "aaaaa", "aaaaaa"};
+        String word1 = "aaaa";
+        String word2 = "aaaaa";
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        ImmutableArrayList expectedResult = new ImmutableArrayList(wordArr);
+        list = list.add(1, word1);
+        ImmutableArrayList actualResult = list.add(2, word2);
+
+        assertArrayEquals(expectedResult.toArray(), actualResult.toArray());
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void testAddMethodWithIndexOutOfBounds() {
         String[] arr = {"aaa", "aaaaa"};
@@ -53,6 +67,15 @@ public class ImmutableArrayListTest {
 
         ImmutableArrayList list = new ImmutableArrayList(arr);
         list.add(2, word);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddMethodWithIndexLessThanZero() {
+        String[] arr = {"aaa", "aaaaa"};
+        String word = "aaaa";
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.add(-3, word);
     }
 
     @Test
@@ -90,6 +113,15 @@ public class ImmutableArrayListTest {
         list.addAll(4, addWordArr);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllMethodWithIndexLessThanZero() {
+        String[] arr = {"aaaaa"};
+        String[] addWordArr = {"aaa", "aaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.addAll(-5, addWordArr);
+    }
+
     @Test
     public void testGetMethod() {
         String[] arr = {"aaa", "aaaa", "aaaaa"};
@@ -107,6 +139,14 @@ public class ImmutableArrayListTest {
 
         ImmutableArrayList list = new ImmutableArrayList(arr);
         list.get(8);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetMethodWithIndexLessThanZero() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.get(-7);
     }
 
     @Test
@@ -129,6 +169,14 @@ public class ImmutableArrayListTest {
         list.remove(8);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveMethodWithIndexLessThanZero() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.remove(-6);
+    }
+
     @Test
     public void testSetMethod() {
         String[] arr = {"bbb", "aaaa", "aaaaa"};
@@ -147,6 +195,14 @@ public class ImmutableArrayListTest {
 
         ImmutableArrayList list = new ImmutableArrayList(arr);
         list.set(8, "bbb");
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testSetMethodWithIndexLessThanZero() {
+        String[] arr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableArrayList list = new ImmutableArrayList(arr);
+        list.set(-1, "bbb");
     }
 
     @Test
