@@ -130,6 +130,14 @@ public class ImmutableLinkedListTest {
         String[] wordArr = {"aaa", "aaaa", "aaaaa"};
 
         ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
+        list.get(17);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetMethodWithIndexLessThanZero() {
+        String[] wordArr = {"aaa", "aaaa", "aaaaa"};
+
+        ImmutableLinkedList list = new ImmutableLinkedList(wordArr);
         list.get(-1);
     }
 

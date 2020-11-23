@@ -57,7 +57,7 @@ public class ImmutableArrayList implements ImmutableList {
             Object[] collectionCopy = new Object[copyLength];
             System.arraycopy(this.collection, 0, collectionCopy, 0, index);
             collectionCopy[index] = e;
-            System.arraycopy(this.collection, index,collectionCopy, index + 1,
+            System.arraycopy(this.collection, index, collectionCopy, index + 1,
                     this.collectionSize - index);
 
             return new ImmutableArrayList(collectionCopy);
@@ -70,7 +70,7 @@ public class ImmutableArrayList implements ImmutableList {
     public ImmutableArrayList addAll(Object[] c) {
         Object[] collectionCopy = new Object[this.collection.length];
         System.arraycopy(this.collection, 0,
-                collectionCopy,0, this.collectionSize);
+                collectionCopy, 0, this.collectionSize);
         ImmutableArrayList immutableArrayListCopy =
                 new ImmutableArrayList(collectionCopy);
 
