@@ -1,8 +1,10 @@
 package ua.edu.ucu.collections.immutable;
 
 
+import java.util.Arrays;
+
 public class ImmutableArrayList implements ImmutableList {
-    private Object[] collection;
+    private final Object[] collection;
     private int collectionSize = 0;
 
     public ImmutableArrayList() {
@@ -12,13 +14,14 @@ public class ImmutableArrayList implements ImmutableList {
     public ImmutableArrayList(Object[] c) {
         if (c.length != 0) {
             this.collection = c;
+            this.collectionSize = c.length;
         } else {
             this.collection = new Object[1];
         }
 
-        for (Object e: this.collection) {
-            if (e != null) {
-                this.collectionSize++;
+        for (int i = this.collectionSize - 1; i >= 0; i--) {
+            if (this.collection[i] == null) {
+                this.collectionSize--;
             } else {
                 break;
             }
@@ -33,11 +36,11 @@ public class ImmutableArrayList implements ImmutableList {
             copyLength *= 2;
         }
 
-        Object[] objectsCopy = new Object[copyLength];
-        System.arraycopy(this.collection, 0, objectsCopy, 0, this.collectionSize);
-        objectsCopy[this.collectionSize] = e;
+        Object[] collectionCopy = new Object[copyLength];
+        System.arraycopy(this.collection, 0, collectionCopy, 0, this.collectionSize);
+        collectionCopy[this.collectionSize] = e;
 
-        return new ImmutableArrayList(objectsCopy);
+        return new ImmutableArrayList(collectionCopy);
     }
 
     @Override
@@ -49,12 +52,12 @@ public class ImmutableArrayList implements ImmutableList {
                 copyLength *= 2;
             }
 
-            Object[] objectsCopy = new Object[copyLength];
-            System.arraycopy(this.collection, 0, objectsCopy, 0, index);
-            objectsCopy[index] = e;
-            System.arraycopy(this.collection, index, objectsCopy, index++, this.collectionSize - index);
+            Object[] collectionCopy = new Object[copyLength];
+            System.arraycopy(this.collection, 0, collectionCopy, 0, index);
+            collectionCopy[index] = e;
+            System.arraycopy(this.collection, index, collectionCopy, index + 1, this.collectionSize - index);
 
-            return new ImmutableArrayList(objectsCopy);
+            return new ImmutableArrayList(collectionCopy);
         }
 
         throw new IndexOutOfBoundsException("Index out of bounds");
@@ -62,7 +65,9 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList addAll(Object[] c) {
-        ImmutableArrayList immutableArrayListCopy = this;
+        Object[] collectionCopy = new Object[this.collection.length];
+        System.arraycopy(this.collection, 0, collectionCopy, 0, this.collectionSize);
+        ImmutableArrayList immutableArrayListCopy = new ImmutableArrayList(collectionCopy);
 
         for (Object e: c) {
             immutableArrayListCopy = immutableArrayListCopy.add(e);
@@ -98,11 +103,11 @@ public class ImmutableArrayList implements ImmutableList {
     @Override
     public ImmutableArrayList remove(int index) {
         if (0 <= index && index < this.collectionSize) {
-            Object[] objectsCopy = new Object[this.collection.length];
-            System.arraycopy(this.collection, 0, objectsCopy, 0, index);
-            System.arraycopy(this.collection, index++, objectsCopy, index, this.collectionSize - index - 1);
+            Object[] collectionCopy = new Object[this.collection.length];
+            System.arraycopy(this.collection, 0, collectionCopy, 0, index);
+            System.arraycopy(this.collection, index++, collectionCopy, index, this.collectionSize - index - 1);
 
-            return new ImmutableArrayList(objectsCopy);
+            return new ImmutableArrayList(collectionCopy);
         }
 
         throw new IndexOutOfBoundsException("Index out of bounds");
@@ -111,11 +116,11 @@ public class ImmutableArrayList implements ImmutableList {
     @Override
     public ImmutableArrayList set(int index, Object e) {
         if (0 <= index && index < this.collectionSize) {
-            Object[] objectsCopy = new Object[this.collection.length];
-            System.arraycopy(this.collection, 0, objectsCopy, 0, this.collectionSize);
-            objectsCopy[index] = e;
+            Object[] collectionCopy = new Object[this.collection.length];
+            System.arraycopy(this.collection, 0, collectionCopy, 0, this.collectionSize);
+            collectionCopy[index] = e;
 
-            return new ImmutableArrayList(objectsCopy);
+            return new ImmutableArrayList(collectionCopy);
         }
 
         throw new IndexOutOfBoundsException("Index out of bounds");
